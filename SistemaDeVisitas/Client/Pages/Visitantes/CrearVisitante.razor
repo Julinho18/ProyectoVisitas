@@ -1,0 +1,19 @@
+﻿@page "/visitante/crear"
+@inject NavigationManager navigationManager 
+@*Lo de arriba es necesario para poder utilizar el NavigateTO*@
+
+<h3>Crear Visitante</h3>
+
+<FormularioVisitante OnValidSubmit="Crear" Visitante="Visitante" />
+
+@code {
+    private Visitante Visitante = new Visitante();
+    void Crear()
+    {
+        //Console.WriteLine(navigationManager.Uri);
+        //El navigaTo nos redirige a otra parte de nuestra aplicacion
+        //navigationManager.NavigateTo("visitante");
+        Console.WriteLine("Ejecutando metodo crear Visitante");
+        Console.WriteLine($"Nombre del Visitante es: {Visitante.No_Visitante}");
+    }
+}

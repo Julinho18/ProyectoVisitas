@@ -1,0 +1,72 @@
+﻿<EditForm Model="Oficina" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label>Nombre de la Oficina:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Oficina.No_Oficina" />
+            <ValidationMessage For="@(()=>Oficina.No_Oficina)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Código de la Oficina:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Oficina.Co_Oficina" />
+            <ValidationMessage For="@(()=>Oficina.Co_Oficina)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Descripción de la Oficina:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Oficina.De_Oficina" />
+            @*<ValidationMessage For="@(()=>Oficina.De_Oficina)" />*@
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Jefe de la Oficina:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Oficina.Jefe_Oficina" />
+            <ValidationMessage For="@(()=>Oficina.Jefe_Oficina)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Sede de la Oficina:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Oficina.Sede" />
+            <ValidationMessage For="@(()=>Oficina.Sede)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <InputImg Label="Imagen" ImagenSeleccionada="ImagenSeleccionada" ImagenTemporal="" />
+    </div>
+
+    <button class="btn btn-success" type="submit">Guardar Cambios</button>
+</EditForm>
+
+@code {
+    [Parameter] public Oficina Oficina { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private string imagenTemporal;
+
+    protected override void OnInitialized()
+    {
+        if (!string.IsNullOrWhiteSpace(Oficina.Imagen))
+        {
+            //Si hay contenido en el campo Imagen de la clase Trabajador, lo que haremos será asignar a la variable imagentemporal
+            //esa foto que contiene ese campo
+            imagenTemporal = Oficina.Imagen;
+            //Al colocar esto. Solo  enviar al servidor la foto de la persona, SI la foto a sido actualizada
+            Oficina.Imagen = null;
+        }
+    }
+
+    private void ImagenSeleccionada(string imagenBase64)
+    {
+        Oficina.Imagen = imagenBase64;
+    }
+}

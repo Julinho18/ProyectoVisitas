@@ -1,0 +1,113 @@
+﻿@page "/"
+@page "/index"
+@inject IRepositorio repositorio
+
+@*Tres maneras diferentes de aplicar lo mismo. Con propiedad, metodo y Metodo dentro de una clase*@
+@*<h1>Hello, @EnMayuscular(nombre)</h1>
+<h2>@nombre.ToLower()</h2>
+<h2>@UtilidadesString.Minimizar(nombre)</h2>*@
+
+@*De esta manera llamas a la clase y dentro de la clase al metodo*@
+@*<h2>@UtilidadesString.Minimizar(nombre)</h2>"*@
+
+    <h1>Bienvenido al sistema de Visitas</h1> 
+
+ @*En este caso nosotros estamos colocando un metodo anonimo cuando se le de clip*@ 
+@*<button @onclick="@( () => Console.WriteLine("Me han clieado") )">
+    Presioname
+</button>
+
+<button @onclick="@manejarClick">
+    Presioname 2 
+</button>*@
+<div>
+    <h3>Cargo Laborales</h3>
+    <ListadoCargoLaborales CargoLaborales="CargoLaborales"/>
+        @*todo lo que esta abajo comentado es para el childcontent*@
+        @*<span style="color:red">No hay peliculas! </span>
+            <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" />
+                <text>Cargando...</text>*@
+
+    @*<button @onclick="@AgregarCargoLaboral">
+    Agregar Cargo laboral
+    </button>*@
+</div>
+
+<div>
+    <h3>Institutos</h3>
+    <ListadoInstitutos Institutos="Institutos" />
+</div>
+
+<div>
+    <h3>Oficinas</h3>
+    <ListadoOficinas Oficinas="Oficinas" />
+</div>
+
+<div>
+    <h3>Trabajadores</h3>
+    <ListadoTrabajadores Trabajadores="Trabajadores" />
+</div>
+
+<div>
+    <h3>Visitantes</h3>
+    <ListadoVisitantes Visitantes="Visitantes" />
+</div>
+
+<div>
+    <h3>Visitas</h3>
+    <ListadoVisitas Visitas="Visitas" />
+</div>
+
+@code{
+    //Aquí podemos declarar variables, metodos,clases, entre otras cosas.
+    //Todo aquí es codigo C#
+    //string nombre = "Julinho";
+    private List<CargoLaboral> CargoLaborales;
+    private List<Instituto> Institutos;
+    private List<Oficina> Oficinas;
+    private List<Trabajador> Trabajadores;
+    private List<Visitante> Visitantes;
+    private List<Visita> Visitas;
+
+    //Para obtener varios cargos laborales 
+    protected override void OnInitialized()
+    {
+        CargoLaborales = repositorio.ObtenerCargoLaborales();
+        Institutos = repositorio.ObtenerInstitutos();
+        Oficinas = repositorio.ObtenerOficinas();
+        Trabajadores = repositorio.ObtenerTrabajadores();
+        Visitantes = repositorio.ObtenerVisitantes();
+        Visitas = repositorio.ObtenerVisitas();
+        //Oficinas = repositorio
+    }
+
+    //void AgregarCargoLaboral()
+    //{
+    //    CargoLaborales.Add(new CargoLaboral() { No_Cargo_Laboral = "Jefe de APCI", Co_Cargo_Laboral = "127", De_Cargo_Laboral = "EASY" });
+    //}
+
+    //Es un método
+    //string EnMayuscular(string valor) => valor.ToUpper();
+
+    //metodo privado 
+    //private void manejarClick()
+    //{
+    //    Console.WriteLine("Me han clieado 3");
+    //}
+
+    //Vamos a crear una clase LOCAL(o sea solo vive dentro de este archivo index) que encapsule el metodo encapsular
+    //public class UtilidadesString
+    //{
+    //    public static string EnMayuscular(string valor) => valor.ToUpper();
+    //    public static string Minimizar(string valor) => valor.ToLower();
+    //}
+
+    //variable de tipo CargoLaboral
+    //public CargoLaboral Diseñador { get { return ObtenerCargoLaboral(); } }
+
+    //crearemos un metodo de de obtener cargolaboral 
+    //private CargoLaboral ObtenerCargoLaboral()
+    //{
+    //    return new CargoLaboral { No_Cargo_Laboral = "Diseñador", Co_Cargo_Laboral = "123", De_Cargo_Laboral = "Es un puesto muy duro" };
+    //}
+}

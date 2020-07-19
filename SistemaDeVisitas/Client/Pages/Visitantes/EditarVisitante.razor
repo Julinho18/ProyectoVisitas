@@ -1,0 +1,22 @@
+﻿@page "/visitante/editar/{VisitanteId:int}"
+
+<h3>Editar Visitante</h3>
+
+<FormularioVisitante OnValidSubmit="Editar" Visitante="Visitante" />
+
+@code {
+    [Parameter] public int VisitanteId { get; set; }
+    private Visitante Visitante;
+
+    protected override void OnInitialized()
+    {
+        Visitante = new Visitante() { Id = VisitanteId, No_Visitante = "Juli" };
+    }
+
+    private void Editar()
+    {
+        Console.WriteLine("Editando Visitante");
+        Console.WriteLine($"id: {Visitante.Id}");
+        Console.WriteLine($"Nombre: {Visitante.No_Visitante}");
+    }
+}

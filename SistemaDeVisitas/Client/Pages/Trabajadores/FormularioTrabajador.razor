@@ -1,0 +1,86 @@
+﻿<EditForm Model="Trabajador" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label>Nombre del Trabajador:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Trabajador.No_Trabajador" />
+            <ValidationMessage For="@(()=>Trabajador.No_Trabajador)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Apellido Paterno:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Trabajador.Ap_Paterno_Trabajador" />
+            <ValidationMessage For="@(()=>Trabajador.Ap_Paterno_Trabajador)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Apellido Materno:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Trabajador.Ap_Materno_Trabajador" />
+            <ValidationMessage For="@(()=>Trabajador.Ap_Materno_Trabajador)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Código Trabajador:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Trabajador.Co_Trabajador" />
+            <ValidationMessage For="@(()=>Trabajador.Co_Trabajador)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Tipo de Documento del Trabajador:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Trabajador.Tipo_Documento" />
+            <ValidationMessage For="@(()=>Trabajador.Tipo_Documento)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Número de Documento del Trabajador:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Trabajador.Nu_Documento" />
+            <ValidationMessage For="@(()=>Trabajador.Nu_Documento)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <InputImg Label="Imagen" ImagenSeleccionada="ImagenSeleccionada" ImagenTemporal="" />
+    </div>
+
+    <div class="form-group form-markdown">
+        <InputMarkdown @bind-Value="@Trabajador.Biografia"
+                       For="@(() => Trabajador.Biografia)"
+                       Label="Biografía" />
+    </div>
+
+    <button class="btn btn-success" type="submit">Guardar Cambios</button>
+</EditForm>
+
+@code {
+    [Parameter] public Trabajador Trabajador { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private string imagenTemporal;
+
+    protected override void OnInitialized()
+    {
+        if (!string.IsNullOrWhiteSpace(Trabajador.Imagen))
+        {
+            //Si hay contenido en el campo Imagen de la clase Trabajador, lo que haremos será asignar a la variable imagentemporal
+            //esa foto que contiene ese campo
+            imagenTemporal = Trabajador.Imagen;
+            //Al colocar esto. Solo  enviar al servidor la foto de la persona, SI la foto a sido actualizada
+            Trabajador.Imagen = null;
+        }
+    }
+
+    private void ImagenSeleccionada(string imagenBase64)
+    {
+        Trabajador.Imagen = imagenBase64;
+    }
+}

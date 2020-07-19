@@ -1,0 +1,76 @@
+﻿@page "/oficinas/buscar"
+@inject IRepositorio repositorio
+
+<h3>Filtro Oficina</h3>
+
+<div class="form-inline">
+
+    <div class="form-group mb-2">
+        <label for="nombre" class="sr-only">Nombre de la Oficina</label>
+        <input @bind-value="nombre"
+               @bind-value:event="oninput"
+               @onkeypress="@((KeyboardEventArgs e)=> NombreKeyPress(e))"
+               type="text" class="form-control" id="nombre" placeholder="Nombre de la oficina" />
+    </div>
+
+    <div class="form-group mx-sm-3 mb-2">
+        <select class="form-control" @bind="oficinaSeleccionado">
+            <option value="0">--Seleccionar Oficina--</option>
+            @foreach (var item in oficina)
+            {
+                <option value="@item.Id">@item.No_Oficina</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group mx-sm-3 mb-2">
+        <input type="checkbox" class="form-check-input" id="oficina" @bind="futurasoficinas" />
+        <label class="form-check-label" for="oficinas">
+            Futuras oficinas
+        </label>
+    </div>
+
+    <button type="button" class="btn btn-primary mb-2 mx-sm-3" @onclick="CargarNuevasOficinas">Filtrar</button>
+    <button type="button" class="btn btn-danger mb-2" @onclick="LimpiarOnClick">Limpiar</button>
+</div>
+
+<ListadoOficinas Oficinas="Oficinas" />
+
+@code {
+    private List<Oficina> Oficinas;
+    string nombre = "";
+    string oficinaSeleccionado = "0";
+    private bool futurasoficinas = false; /*Se crearian más de estas propiedades si colcamos más condiciones*/
+    private List<Oficina> oficina = new List<Oficina>();
+
+    protected override void OnInitialized()
+    {
+        Oficinas = repositorio.ObtenerOficinas();
+    }
+
+    //La idea de esto es que cuando el cuando el usuario le de clip al NOMBRE se carge los nuevos cargos laborales
+    private void NombreKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")//Si se presiona ENTER ejecutar el metodo
+        {
+            CargarNuevasOficinas();
+        }
+    }
+
+    private void CargarNuevasOficinas()
+    {
+        //Lo de abajo es el que hace el FILTRO
+        Oficinas = Oficinas.Where(x => x.No_Oficina.ToLower().Contains(nombre.ToLower())).ToList();
+        Console.WriteLine($"Nombre de la oficina: {nombre}");
+        Console.WriteLine($"Oficina seleccionado: {oficinaSeleccionado}");
+        Console.WriteLine($"Futuras oficinas: {futurasoficinas}");
+    }
+
+    private void LimpiarOnClick()
+    {
+        Oficinas = repositorio.ObtenerOficinas();
+        nombre = "";
+        oficinaSeleccionado = "0";
+        futurasoficinas = false;
+    }
+}

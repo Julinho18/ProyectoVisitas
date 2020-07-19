@@ -1,0 +1,150 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Julinho\\source\\repos\\SistemaDeVisitas\\SistemaDeVisitas\\Client\\SistemaDeVisitas.Client.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Julinho\\source\\repos\\SistemaDeVisitas\\SistemaDeVisitas\\Client\\SistemaDeVisitas.Client.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Julinho\\source\\repos\\SistemaDeVisitas\\SistemaDeVisitas\\Client\\SistemaDeVisitas.Client.csproj",
+        "projectName": "SistemaDeVisitas.Client",
+        "projectPath": "C:\\Users\\Julinho\\source\\repos\\SistemaDeVisitas\\SistemaDeVisitas\\Client\\SistemaDeVisitas.Client.csproj",
+        "packagesPath": "C:\\Users\\Julinho\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Julinho\\source\\repos\\SistemaDeVisitas\\SistemaDeVisitas\\Client\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Julinho\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {
+              "C:\\Users\\Julinho\\source\\repos\\SistemaDeVisitas\\SistemaDeVisitas\\Shared\\SistemaDeVisitas.Shared.csproj": {
+                "projectPath": "C:\\Users\\Julinho\\source\\repos\\SistemaDeVisitas\\SistemaDeVisitas\\Shared\\SistemaDeVisitas.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "dependencies": {
+            "Markdig": {
+              "target": "Package",
+              "version": "[0.20.0, )"
+            },
+            "Microsoft.AspNetCore.Blazor.HttpClient": {
+              "target": "Package",
+              "version": "[3.2.0-preview3.20168.3, )"
+            },
+            "Microsoft.AspNetCore.Components.WebAssembly": {
+              "target": "Package",
+              "version": "[5.0.0-preview.6.20312.15, )"
+            },
+            "Microsoft.AspNetCore.Components.WebAssembly.Build": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.0-preview.6.20312.15, )"
+            },
+            "Microsoft.AspNetCore.Components.WebAssembly.DevServer": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.0-preview.6.20312.15, )"
+            },
+            "Tewr.Blazor.FileReader": {
+              "target": "Package",
+              "version": "[2.0.0.20200, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.400-preview-015178\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Julinho\\source\\repos\\SistemaDeVisitas\\SistemaDeVisitas\\Shared\\SistemaDeVisitas.Shared.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Julinho\\source\\repos\\SistemaDeVisitas\\SistemaDeVisitas\\Shared\\SistemaDeVisitas.Shared.csproj",
+        "projectName": "SistemaDeVisitas.Shared",
+        "projectPath": "C:\\Users\\Julinho\\source\\repos\\SistemaDeVisitas\\SistemaDeVisitas\\Shared\\SistemaDeVisitas.Shared.csproj",
+        "packagesPath": "C:\\Users\\Julinho\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Julinho\\source\\repos\\SistemaDeVisitas\\SistemaDeVisitas\\Shared\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Julinho\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "dependencies": {
+            "System.ComponentModel.Annotations": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.400-preview-015178\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

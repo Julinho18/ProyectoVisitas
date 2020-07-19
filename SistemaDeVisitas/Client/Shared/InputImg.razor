@@ -1,0 +1,58 @@
+﻿@using System.IO
+@using Tewr.Blazor.FileReader
+@inject Tewr.Blazor.FileReader.IFileReaderService fileReaderService
+
+<div>
+    <label>@Label</label>
+    <div>                                      @*cuando ocurra un cambio ejecutar el metodo imagefileselected*@
+        <input type="file" @ref="inputElement" @onchange="ImageFileSelected" accept=".jpg,.jpeg,.png" />
+    </div>
+</div>
+<div>
+    @if (imagenBase64 != null)
+    {
+        <div>
+            <div style="margin:10px;">
+                <img src="data:image/jpeg;base64, @imagenBase64" style="width: 400px;" />
+            </div>
+        </div>
+    }
+    @*La imagenTemporal es aquella que viene de una URL de la base de datos*@
+    @if (ImagenTemporal != null)
+    {
+        <div>
+            <div style="margin:10px;">
+                <img src="@ImagenTemporal" style="width: 400px;" />
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public string Label { get; set; } = "Foto";
+    [Parameter] public string ImagenTemporal { get; set; }
+    //El EventCallBack me permite avisarle al componente PADRE que una imagen a sido seleccionada y le vamos a pasar la representacion
+    //en base 64 de dicha imagen
+    [Parameter] public EventCallback<string> ImagenSeleccionada { get; set; } 
+    private string imagenBase64;
+    ElementReference inputElement; // con el ElementReference podemos hacer referencia a un elemento de HTML
+
+    async Task ImageFileSelected()
+    {
+        foreach (var file in await fileReaderService.CreateReference(inputElement).EnumerateFilesAsync())
+        {                                                                   //Hemos utilizado 4 kb
+            using (MemoryStream memoryStream = await file.CreateMemoryStreamAsync(4 * 1024))
+            {
+                var bytesImagen = new byte[memoryStream.Length];
+                memoryStream.Read(bytesImagen, 0, (int)memoryStream.Length);
+                imagenBase64 = Convert.ToBase64String(bytesImagen);
+                //Ahora le avisamos al componente PADRE que la imagen ha sido seleccionada
+                await ImagenSeleccionada.InvokeAsync(imagenBase64);
+                //Y como ya tenemos una imagen seleccionada, YA NO NECESITAMOS LA IMAGEN TEMPORAL por eso lo colocamos como NULL
+                ImagenTemporal = null;
+                //Ahora para avisar a Blazor que ha ocurrido un cambio y queremos refrescar la interfaz de usuario
+                StateHasChanged();
+            }
+        }
+    }
+}

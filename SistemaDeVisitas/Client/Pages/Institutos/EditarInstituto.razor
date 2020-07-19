@@ -1,0 +1,22 @@
+﻿@page "/instituto/editar/{InstitutoId:int}"
+
+<h3>Editar Instituto</h3>
+
+<FormularioInstituto OnValidSubmit="Editar" Instituto="Instituto" />
+
+@code {
+    [Parameter] public int InstitutoId { get; set; }
+    private Instituto Instituto;
+
+    protected override void OnInitialized()
+    {
+        Instituto = new Instituto() { Id = InstitutoId, No_Instituto = "MINSA" };
+    }
+
+    private void Editar()
+    {
+        Console.WriteLine("Editando Instituto");
+        Console.WriteLine($"id: {Instituto.Id}");
+        Console.WriteLine($"Nombre: {Instituto.No_Instituto}");
+    }
+}

@@ -1,0 +1,52 @@
+﻿<EditForm Model="Visita" OnSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label>Nombre del lugar de la reunion de la visita:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Visita.No_Lugar_Reunion" />
+            <ValidationMessage For="@(()=>Visita.No_Lugar_Reunion)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Motivo de la visita:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Visita.Motivo" />
+            <ValidationMessage For="@(()=>Visita.Motivo)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Trabajador visitado:</label>
+        <div> @* abajo (@code{}) se trabaja con los metodos SearchMethod y Elementos seleccionados*@
+            <SelectorMultipleTypeahead Context="trabajador"
+                                       SearchMethod="BuscarTrabajadores"
+                                       ElementosSeleccionados="TrabajadoresSeleccionados">
+                <MyListTemplate> @*Se coloca el elemento ya seleccionado por el usuario*@
+                    @trabajador.No_Trabajador
+                </MyListTemplate>
+                <MyResultTemplate> @*Lo que le va a salir al usuario mientras este escribiendo*@
+                    <img style="width: 50px" src="@trabajador.Imagen" />
+                    @trabajador.No_Trabajador
+                </MyResultTemplate>
+            </SelectorMultipleTypeahead>
+        </div>
+    </div>
+
+    <button class="btn btn-success" type="submit">Guardar Cambios</button>
+</EditForm>
+
+@code {
+    [Parameter] public Visita Visita { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public List<Trabajador> TrabajadoresSeleccionados { get; set; } = new List<Trabajador>();
+
+    private async Task<IEnumerable<Trabajador>> BuscarTrabajadores(string searchText)
+    {
+        return new List<Trabajador>()
+        {
+            new Trabajador(){Id=1, No_Trabajador="Tom Holland", Imagen = "https://m.media-amazon.com/images/M/MV5BNTAzMzA3NjQwOF5BMl5BanBnXkFtZTgwMDUzODQ5MTI@._V1_UY317_CR23,0,214,317_AL_.jpg"},
+            new Trabajador(){Id=2, No_Trabajador="Tom Hanks", Imagen = "https://m.media-amazon.com/images/M/MV5BMTQ2MjMwNDA3Nl5BMl5BanBnXkFtZTcwMTA2NDY3NQ@@._V1_UY317_CR2,0,214,317_AL_.jpg"}
+        };
+    }
+}

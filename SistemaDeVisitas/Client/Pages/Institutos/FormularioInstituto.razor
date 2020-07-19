@@ -1,0 +1,64 @@
+﻿<EditForm Model="Instituto" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label>Nombre del Instituto:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Instituto.No_Instituto" />
+            <ValidationMessage For="@(()=>Instituto.No_Instituto)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Descripcion del Instituto:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Instituto.De_Instituto" />
+            @*<ValidationMessage For="@(()=>Instituto.No_Instituto)" />*@
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Tipo de Documento del Instituto:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Instituto.Tipo_Documento" />
+            <ValidationMessage For="@(()=>Instituto.Tipo_Documento)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Número del documento del Instituto:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Instituto.Nu_Documento" />
+            <ValidationMessage For="@(()=>Instituto.Nu_Documento)" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <InputImg Label="Imagen" ImagenSeleccionada="ImagenSeleccionada" ImagenTemporal="" />
+    </div>
+
+    <button class="btn btn-success" type="submit">Guardar Cambios</button>
+</EditForm>
+
+@code {
+    [Parameter] public Instituto Instituto { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private string imagenTemporal;
+
+    protected override void OnInitialized()
+    {
+        if (!string.IsNullOrWhiteSpace(Instituto.Imagen))
+        {
+            //Si hay contenido en el campo Imagen de la clase Trabajador, lo que haremos será asignar a la variable imagentemporal
+            //esa foto que contiene ese campo
+            imagenTemporal = Instituto.Imagen;
+            //Al colocar esto. Solo  enviar al servidor la foto de la persona, SI la foto a sido actualizada
+            Instituto.Imagen = null;
+        }
+    }
+
+    private void ImagenSeleccionada(string imagenBase64)
+    {
+        Instituto.Imagen = imagenBase64;
+    }
+}

@@ -1,0 +1,22 @@
+﻿@page "/cargolaboral/editar/{CargoLaboralId:int}"
+
+<h3>Editar Cargo Laboral</h3>
+
+<FormularioCargoLaboral OnValidSubmit="Editar" CargoLaboral="CargoLaboral"/>
+
+@code {
+    [Parameter] public int CargoLaboralId { get; set; }
+    private CargoLaboral CargoLaboral;
+
+    protected override void OnInitialized()
+    {
+        CargoLaboral = new CargoLaboral() { Id = CargoLaboralId, No_Cargo_Laboral = "Jefe" };
+    }
+
+    private void Editar()
+    {
+        Console.WriteLine("Editando cargo laboral");
+        Console.WriteLine($"id: {CargoLaboral.Id}");
+        Console.WriteLine($"Nombre: {CargoLaboral.No_Cargo_Laboral}");
+    }
+}

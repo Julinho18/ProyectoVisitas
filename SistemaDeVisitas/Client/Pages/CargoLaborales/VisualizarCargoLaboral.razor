@@ -1,0 +1,14 @@
+﻿@page "/cargolaboral/{CargoLaboralId:int}"
+@page "/cargolaboral/{CargoLaboralId:int}/{NombreCargoLaboral}"
+
+<h3>Cargo Laboral</h3>
+
+@code {
+    [Parameter] public int CargoLaboralId { get; set; }
+    [Parameter] public string NombreCargoLaboral { get; set; }
+    protected override void OnInitialized()
+    {
+        Console.WriteLine($"el id del cargo laboral es: {CargoLaboralId} y su nombre es : {NombreCargoLaboral}");
+
+    }
+}

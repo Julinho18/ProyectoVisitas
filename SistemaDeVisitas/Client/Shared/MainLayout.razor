@@ -1,0 +1,42 @@
+﻿@inherits LayoutComponentBase
+@*Este sería el componente ANCESTRoooooooooooOOOOoooooO*@
+@*Este es el lado izquierdo de la pagina*@
+<div class="sidebar">
+    <NavMenu />
+</div>
+
+<div class="main">
+    @*Este es la parte superior de la pagina donde esta el about*@
+    <div class="top-row px-4">
+        <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
+    </div>
+
+    @*Este es el cuerpo de las secciones*@
+<div class="content px-4">
+    @*toodo componente de nuestra app que use el MainLayout va a estar anidado de este CascadingValue*@
+    @*Lo que significa que cualquier valor que yo defina a nivel del CascadingValue va poder ser accedido por clqr componente de la app*@
+    @*generalmente cuando hay 2 cascadingValue con el mismo tipo DEBEMOS colocar*@
+    @*un nombre a cada cascadingvalue para identificar cual usuaremos*@
+    @*<CascadingValue Value="@Color" Name="Color">
+        <CascadingValue Value="@Size" Name="Size">
+            @Body
+        </CascadingValue>
+    </CascadingValue>*@
+
+    <CascadingValue Value="@appState">
+        @Body
+    </CascadingValue>
+</div>
+</div>
+
+@code {
+    //yo puedo acceder a esta variable que yo tengo aquí desde cualquier componente de mi app
+    AppState appState = new AppState();
+
+    public class AppState
+    {
+        public string Color { get; set; } = "red";
+        public string Size { get; set; } = "12px";
+    }
+
+}

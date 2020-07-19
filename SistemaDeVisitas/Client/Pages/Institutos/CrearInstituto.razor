@@ -1,0 +1,20 @@
+﻿@page "/instituto/crear"
+@inject NavigationManager navigationManager 
+@*Lo de arriba es necesario para poder utilizar el NavigateTO*@
+
+<h3>Crear Instituto</h3>
+
+<FormularioInstituto OnValidSubmit="Crear" Instituto="Instituto" />
+
+@code {
+    private Instituto Instituto = new Instituto();
+
+    void Crear()
+    {
+        //Console.WriteLine(navigationManager.Uri);
+        //El navigaTo nos redirige a otra parte de nuestra aplicacion
+        //navigationManager.NavigateTo("instituto");
+        Console.WriteLine("Ejecutando metodo crear Instituto");
+        Console.WriteLine($"Nombre del instituto es: {Instituto.No_Instituto}");
+    }
+}

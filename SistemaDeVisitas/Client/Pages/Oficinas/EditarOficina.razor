@@ -1,0 +1,22 @@
+﻿@page "/oficina/editar/{OficinaId:int}"
+
+<h3>Editar Oficina</h3>
+
+<FormularioOficina OnValidSubmit="Editar" Oficina="Oficina" />
+
+@code {
+    [Parameter] public int OficinaId { get; set; }
+    private Oficina Oficina;
+
+    protected override void OnInitialized()
+    {
+        Oficina = new Oficina() { Id = OficinaId, No_Oficina = "USI" };
+    }
+
+    private void Editar()
+    {
+        Console.WriteLine("Editando Oficina");
+        Console.WriteLine($"id: {Oficina.Id}");
+        Console.WriteLine($"Nombre: {Oficina.No_Oficina}");
+    }
+}

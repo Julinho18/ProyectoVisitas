@@ -1,0 +1,13 @@
+﻿@page "/visitante/{VisitanteId:int}"
+@page "/visitante/{VisitanteId:int}/{NombreVisitante}"
+
+<h3>Visitante</h3>
+
+@code {
+    [Parameter] public int VisitanteId { get; set; }
+    [Parameter] public string NombreVisitante { get; set; }
+    protected override void OnInitialized()
+    {
+        Console.WriteLine($"el id del visitante es: {VisitanteId} y su nombre es : {NombreVisitante}");
+    }
+}

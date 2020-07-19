@@ -1,0 +1,97 @@
+﻿<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">SistemaDeVisitas</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <ul class="nav flex-column">
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="counter">
+                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+            </NavLink>
+        </li>
+        @*<li class="nav-item px-3">
+            <NavLink class="nav-link" href="fetchdata">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+            </NavLink>
+        </li>*@
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="visita">
+                <span class="oi oi-plus" aria-hidden="true"></span> Visita
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="visitante">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Visitante
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="instituto">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Instituto
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="trabajador">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Trabajador
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="cargolaboral">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Cargo Laboral
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="oficina">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Oficina
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="cargolaborales/buscar">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Filtro Cargo Laboral
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="institutos/buscar">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Filtro Institutos
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="oficinas/buscar">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Filtro Oficinas
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="trabajadores/buscar">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Filtro Trabajadores
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="visitantes/buscar">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Filtro Visitante
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="visitas/buscar">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Filtro Visitas
+            </NavLink>
+        </li>
+    </ul>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

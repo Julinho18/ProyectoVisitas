@@ -1,0 +1,22 @@
+﻿@page "/cargolaboral/crear"
+@inject NavigationManager navigationManager 
+@*Lo de arriba es necesario para poder utilizar el NavigateTO*@
+
+<h3>Crear Cargo Laboral</h3>
+
+<FormularioCargoLaboral OnValidSubmit="Crear" CargoLaboral="CargoLaboral"/>
+
+@code {
+    private CargoLaboral CargoLaboral = new CargoLaboral(); // se debe iniciarlizar como un objeto vacio ALMENOS xk el compoenente
+    //editform no permite valores vacios
+
+
+    void Crear()
+    {
+        //Console.WriteLine(navigationManager.Uri);
+        //El navigaTo nos redirige a otra parte de nuestra aplicacion
+        //navigationManager.NavigateTo("cargolaboral");
+        Console.WriteLine("Ejecutando metodo crear cargo laboral");
+        Console.WriteLine($"Nombre del cargo laboral es: {CargoLaboral.No_Cargo_Laboral}");
+    }
+}

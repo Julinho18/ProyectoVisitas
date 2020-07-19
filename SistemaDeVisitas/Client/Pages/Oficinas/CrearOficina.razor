@@ -1,0 +1,19 @@
+﻿@page "/oficina/crear"
+@inject NavigationManager navigationManager 
+@*Lo de arriba es necesario para poder utilizar el NavigateTO*@
+
+<h3>Crear Oficina</h3>
+
+<FormularioOficina OnValidSubmit="Crear" Oficina="Oficina" />
+
+@code {
+    private Oficina Oficina = new Oficina();
+    void Crear()
+    {
+        //Console.WriteLine(navigationManager.Uri);
+        //El navigaTo nos redirige a otra parte de nuestra aplicacion
+        //navigationManager.NavigateTo("oficina");
+        Console.WriteLine("Ejecutando metodo crear Oficina");
+        Console.WriteLine($"Nombre de la Oficina es: {Oficina.No_Oficina}");
+    }
+}

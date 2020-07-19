@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "t2NJ1NeuoUHYeld7/6KBHYkD5ckDpxFTgc+OVpzqgok6VNiYw7XkNdUS6F/r9G643UbSJkKfLbNtj3Sc3i+HAw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Julinho\\source\\repos\\SistemaDeVisitas\\SistemaDeVisitas\\Shared\\SistemaDeVisitas.Shared.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Julinho\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}

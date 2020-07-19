@@ -1,0 +1,19 @@
+﻿@page "/trabajador/crear"
+@inject NavigationManager navigationManager
+@*Lo de arriba es necesario para poder utilizar el NavigateTO*@
+
+<h3>Crear Trabajador</h3>
+
+<FormularioTrabajador OnValidSubmit="Crear" Trabajador="Trabajador" />
+
+@code {
+    private Trabajador Trabajador = new Trabajador();
+    void Crear()
+    {
+        //Console.WriteLine(navigationManager.Uri);
+        //El navigaTo nos redirige a otra parte de nuestra aplicacion
+        //navigationManager.NavigateTo("trabajador");
+        Console.WriteLine("Ejecutando metodo crear Trabajador");
+        Console.WriteLine($"Nombre del Trabajador es: {Trabajador.No_Trabajador}");
+    }
+}

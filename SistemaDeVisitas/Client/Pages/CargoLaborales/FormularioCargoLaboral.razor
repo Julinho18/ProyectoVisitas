@@ -1,0 +1,61 @@
+﻿@*El atributo "OnSubmit" acepta cualquier cosa en el formulario*@
+@*El atributo "OnValidSubmit" restringe el formulario en base a la restricciones que hemos colocado en las clases de las entidades*@
+    <EditForm Model="CargoLaboral" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator /> @*Este componente siempre se pone cuando usamos "OnValidSubmit"*@
+        <div class="form-group">
+            <label>Nombre del Cargo Laboral:</label>
+            <div>
+                <InputText class="form-control" @bind-Value="CargoLaboral.No_Cargo_Laboral" />
+                @*El componente de abajo es para MOSTAR el error que esta cometiendo cuando ingresa un dato en nulo o invalido*@
+                <ValidationMessage For="@(()=>CargoLaboral.No_Cargo_Laboral)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Codigo del Cargo Laboral:</label>
+            <div>
+                <InputText class="form-control" @bind-Value="CargoLaboral.Co_Cargo_Laboral" />
+                @*El componente de abajo es para MOSTAR el error que esta cometiendo cuando ingresa un dato en nulo o invalido*@
+                <ValidationMessage For="@(()=>CargoLaboral.Co_Cargo_Laboral)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Descripción del Cargo Laboral:</label>
+            <div>
+                <InputText class="form-control" @bind-Value="CargoLaboral.De_Cargo_Laboral" />
+                @*El componente de abajo es para MOSTAR el error que esta cometiendo cuando ingresa un dato en nulo o invalido*@
+                @*<ValidationMessage For="@(()=>CargoLaboral.De_Cargo_Laboral)" />*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <InputImg Label="Imagen" ImagenSeleccionada="ImagenSeleccionada" ImagenTemporal="" />
+        </div>
+
+        <button class="btn btn-success" type="submit">Guardar Cambios</button>
+    </EditForm>
+
+@code {
+    [Parameter] public CargoLaboral CargoLaboral { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private string imagenTemporal;
+
+    protected override void OnInitialized()
+    {
+        if (!string.IsNullOrWhiteSpace(CargoLaboral.Imagen))
+        {
+            //Si hay contenido en el campo Imagen de la clase Trabajador, lo que haremos será asignar a la variable imagentemporal
+            //esa foto que contiene ese campo
+            imagenTemporal = CargoLaboral.Imagen;
+            //Al colocar esto. Solo  enviar al servidor la foto de la persona, SI la foto a sido actualizada
+            CargoLaboral.Imagen = null;
+        }
+    }
+
+    private void ImagenSeleccionada(string imagenBase64)
+    {
+        CargoLaboral.Imagen = imagenBase64;
+    }
+}

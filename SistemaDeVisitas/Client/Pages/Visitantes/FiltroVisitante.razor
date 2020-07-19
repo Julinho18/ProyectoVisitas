@@ -1,0 +1,76 @@
+﻿@page "/visitantes/buscar"
+@inject IRepositorio repositorio
+
+<h3>Filtro Visitante</h3>
+
+<div class="form-inline">
+
+    <div class="form-group mb-2">
+        <label for="nombre" class="sr-only">Nombre del Visitante</label>
+        <input @bind-value="nombre"
+               @bind-value:event="oninput"
+               @onkeypress="@((KeyboardEventArgs e)=> NombreKeyPress(e))"
+               type="text" class="form-control" id="nombre" placeholder="Nombre del Visitante" />
+    </div>
+
+    <div class="form-group mx-sm-3 mb-2">
+        <select class="form-control" @bind="visitanteSeleccionado">
+            <option value="0">--Seleccionar Trabajador--</option>
+            @foreach (var item in visitante)
+            {
+                <option value="@item.Id">@item.No_Visitante</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group mx-sm-3 mb-2">
+        <input type="checkbox" class="form-check-input" id="visitante" @bind="futurosvisitantes" />
+        <label class="form-check-label" for="visitantes">
+            Futuros Visitantes
+        </label>
+    </div>
+
+    <button type="button" class="btn btn-primary mb-2 mx-sm-3" @onclick="CargarNuevosVisitantes">Filtrar</button>
+    <button type="button" class="btn btn-danger mb-2" @onclick="LimpiarOnClick">Limpiar</button>
+</div>
+
+<ListadoVisitantes Visitantes="Visitantes" />
+
+@code {
+    private List<Visitante> Visitantes;
+    string nombre = "";
+    string visitanteSeleccionado = "0";
+    private bool futurosvisitantes = false; /*Se crearian más de estas propiedades si colcamos más condiciones*/
+    private List<Visitante> visitante = new List<Visitante>();
+
+    protected override void OnInitialized()
+    {
+        Visitantes = repositorio.ObtenerVisitantes();
+    }
+
+    //La idea de esto es que cuando el cuando el usuario le de clip al NOMBRE se carge los nuevos cargos laborales
+    private void NombreKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")//Si se presiona ENTER ejecutar el metodo
+        {
+            CargarNuevosVisitantes();
+        }
+    }
+
+    private void CargarNuevosVisitantes()
+    {
+        //Lo de abajo es el que hace el FILTRO
+        Visitantes = Visitantes.Where(x => x.No_Visitante.ToLower().Contains(nombre.ToLower())).ToList();
+        Console.WriteLine($"Nombre del visitante: {nombre}");
+        Console.WriteLine($"Visitante seleccionado: {visitanteSeleccionado}");
+        Console.WriteLine($"Futuros visitantes: {futurosvisitantes}");
+    }
+
+    private void LimpiarOnClick()
+    {
+        Visitantes = repositorio.ObtenerVisitantes();
+        nombre = "";
+        visitanteSeleccionado = "0";
+        futurosvisitantes = false;
+    }
+}

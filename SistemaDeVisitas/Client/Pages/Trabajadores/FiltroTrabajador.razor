@@ -1,0 +1,76 @@
+﻿@page "/trabajadores/buscar"
+@inject IRepositorio repositorio
+
+<h3>Filtro Trabajador</h3>
+
+<div class="form-inline">
+
+    <div class="form-group mb-2">
+        <label for="nombre" class="sr-only">Nombre del Trabajador</label>
+        <input @bind-value="nombre"
+               @bind-value:event="oninput"
+               @onkeypress="@((KeyboardEventArgs e)=> NombreKeyPress(e))"
+               type="text" class="form-control" id="nombre" placeholder="Nombre del trabajador" />
+    </div>
+
+    <div class="form-group mx-sm-3 mb-2">
+        <select class="form-control" @bind="trabajadorSeleccionado">
+            <option value="0">--Seleccionar Trabajador--</option>
+            @foreach (var item in trabajador)
+            {
+                <option value="@item.Id">@item.No_Trabajador</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group mx-sm-3 mb-2">
+        <input type="checkbox" class="form-check-input" id="trabajador" @bind="futurostrabajadores" />
+        <label class="form-check-label" for="trabajadores">
+            Futuros Trabajadores
+        </label>
+    </div>
+
+    <button type="button" class="btn btn-primary mb-2 mx-sm-3" @onclick="CargarNuevosTrabajadores">Filtrar</button>
+    <button type="button" class="btn btn-danger mb-2" @onclick="LimpiarOnClick">Limpiar</button>
+</div>
+
+<ListadoTrabajadores Trabajadores="Trabajadores" />
+
+@code {
+    private List<Trabajador> Trabajadores;
+    string nombre = "";
+    string trabajadorSeleccionado = "0";
+    private bool futurostrabajadores = false; /*Se crearian más de estas propiedades si colcamos más condiciones*/
+    private List<Trabajador> trabajador = new List<Trabajador>();
+
+    protected override void OnInitialized()
+    {
+        Trabajadores = repositorio.ObtenerTrabajadores();
+    }
+
+    //La idea de esto es que cuando el cuando el usuario le de clip al NOMBRE se carge los nuevos cargos laborales
+    private void NombreKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")//Si se presiona ENTER ejecutar el metodo
+        {
+            CargarNuevosTrabajadores();
+        }
+    }
+
+    private void CargarNuevosTrabajadores()
+    {
+        //Lo de abajo es el que hace el FILTRO
+        Trabajadores = Trabajadores.Where(x => x.No_Trabajador.ToLower().Contains(nombre.ToLower())).ToList();
+        Console.WriteLine($"Nombre del trabajador: {nombre}");
+        Console.WriteLine($"Trabajador seleccionado: {trabajadorSeleccionado}");
+        Console.WriteLine($"Futuros trabajadores: {futurostrabajadores}");
+    }
+
+    private void LimpiarOnClick()
+    {
+        Trabajadores = repositorio.ObtenerTrabajadores();
+        nombre = "";
+        trabajadorSeleccionado = "0";
+        futurostrabajadores = false;
+    }
+}

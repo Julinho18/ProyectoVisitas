@@ -1,0 +1,28 @@
+﻿
+<div style="margin-right: 2%; margin-bottom: 10px; text-align: center;">
+    <a href="@urlOficina">
+        <img src="@Oficina.Imagen" alt="Poster" style="width:225px; height: 300px;" />
+    </a>
+    <p style="max-width: 225px; height:44px; font-size: 15px; font-weight: bold;">
+        <a href="@urlOficina">@Oficina.TituloCortado</a>
+    </p>
+    <div>
+        <a class="btn btn-info">Editar</a>
+        <button type="button" class="btn btn-danger" @onclick="@(()=>EliminarOficinaHIJO.InvokeAsync(Oficina))">
+            Borrar
+        </button>
+    </div>
+</div>
+
+@code{
+    [Parameter] public Oficina Oficina { get; set; }
+    [Parameter] public bool MostrarBotones { get; set; } = false;
+    [Parameter] public EventCallback<Oficina> EliminarOficinaHIJO { get; set; }
+
+    //para construir la URL vamos a usar el protected
+    private string urlOficina = string.Empty;
+    protected override void OnInitialized()
+    {
+        urlOficina = $"oficina/";
+    }
+}

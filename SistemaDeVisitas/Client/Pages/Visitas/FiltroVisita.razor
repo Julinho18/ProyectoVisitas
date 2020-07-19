@@ -1,0 +1,76 @@
+﻿@page "/visitas/buscar"
+@inject IRepositorio repositorio
+
+<h3>Filtro Visita</h3>
+
+<div class="form-inline">
+
+    <div class="form-group mb-2">
+        <label for="nombre" class="sr-only">Id de la Visita</label>
+        <input @bind-value="id"
+               @bind-value:event="oninput"
+               @onkeypress="@((KeyboardEventArgs e)=> NombreKeyPress(e))"
+               type="text" class="form-control" id="id" placeholder="Id de la visita" />
+    </div>
+
+    <div class="form-group mx-sm-3 mb-2">
+        <select class="form-control" @bind="visitaSeleccionado">
+            <option value="0">--Seleccionar visita--</option>
+            @foreach (var item in visita)
+            {
+                <option value="@item.Id">@item.Id</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group mx-sm-3 mb-2">
+        <input type="checkbox" class="form-check-input" id="visita" @bind="futurasvisitas" />
+        <label class="form-check-label" for="visitas">
+            Futuros Visitas
+        </label>
+    </div>
+
+    <button type="button" class="btn btn-primary mb-2 mx-sm-3" @onclick="CargarNuevasVisitas">Filtrar</button>
+    <button type="button" class="btn btn-danger mb-2" @onclick="LimpiarOnClick">Limpiar</button>
+</div>
+
+<ListadoVisitas Visitas="Visitas" />
+
+@code {
+    private List<Visita> Visitas;
+    string id = "";
+    string visitaSeleccionado = "0";
+    private bool futurasvisitas = false; /*Se crearian más de estas propiedades si colcamos más condiciones*/
+    private List<Visita> visita = new List<Visita>();
+
+    protected override void OnInitialized()
+    {
+        Visitas = repositorio.ObtenerVisitas();
+    }
+
+    //La idea de esto es que cuando el cuando el usuario le de clip al NOMBRE se carge los nuevos cargos laborales
+    private void NombreKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")//Si se presiona ENTER ejecutar el metodo
+        {
+            CargarNuevasVisitas();
+        }
+    }
+
+    private void CargarNuevasVisitas()
+    {
+        //Lo de abajo es el que hace el FILTRO
+        Visitas = Visitas.Where(x => x.Motivo.ToLower().Contains(id)).ToList();
+        Console.WriteLine($"Id de la Visita: {id}");
+        Console.WriteLine($"Id seleccionado: {visitaSeleccionado}");
+        Console.WriteLine($"Futuros visitas: {futurasvisitas}");
+    }
+
+    private void LimpiarOnClick()
+    {
+        Visitas = repositorio.ObtenerVisitas();
+        id = "";
+        visitaSeleccionado = "0";
+        futurasvisitas = false;
+    }
+}

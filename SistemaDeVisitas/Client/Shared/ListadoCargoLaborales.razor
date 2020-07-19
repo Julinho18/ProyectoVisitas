@@ -1,0 +1,53 @@
+﻿@inject IJSRuntime js
+
+        @*//ejemplo con FOR*@
+        @*@for (var i = 0; i < CargoLaborales.Count; i++)
+            {
+                <div>
+                    @if (i == CargoLaborales.Count - 1)
+                    {
+                        <p>Esta es la ultima pelicula</p>
+                    }
+                    <p>@(i+1))Titulo: @((MarkupString)CargoLaborales[i].No_Cargo_Laboral)</p>
+                    <p>Codigo: <b>@CargoLaborales[i].De_Cargo_Laboral</b></p>
+                </div>
+            }*@
+        @*//cuando hacemos lo de abajo estamos creando un metodo anonimo
+        //@onchange="@(()=> MostrarBotones=!MostrarBotones)       este es otra manera inves de usar el @bind="MostrarBotones"*@
+        <input type="checkbox" @bind="MostrarBotones" />
+        <div style="display: flex; flex-wrap: wrap; align-content: center;">
+            <ListadoGenerico Listado="CargoLaborales">
+                <HayRegistros Context="cargolaboral">
+                    @*ese nombre Context siempre se llama así*@
+                    <CargoLaboralIndividual CargoLaboral="cargolaboral"
+                                            EliminarCargoLaboralHIJO="EliminarCargoLaboralPADRE"
+                                            MostrarBotones="MostrarBotones" />
+                </HayRegistros>
+            </ListadoGenerico>
+        </div>
+
+@code {
+    //variable de tipo CargoLaboral - Los parametros deben ser PUBLICOS
+    [Parameter] public List<CargoLaboral> CargoLaborales { get; set; }
+    //[Parameter] public RenderFragment ChildContent { get; set; }//Es obligatorio el nombre de ChildContent
+
+    bool MostrarBotones = false;
+
+    async Task EliminarCargoLaboralPADRE(CargoLaboral cargoLaboral)
+    {                                              /*El nombre de la funcion en javascript es "confirm" y luego lo sigueinte es el mensaje*/
+        var confirmado = await js.Confirm($"¿Desea borrar el cargo laboral,  {cargoLaboral.No_Cargo_Laboral}?");
+
+        if(confirmado)
+        {
+            CargoLaborales.Remove(cargoLaboral);
+            Console.WriteLine($"Se ha eliminado el cargo Laboral {cargoLaboral.No_Cargo_Laboral}");
+        }
+    }
+    // Ahora lo que haremos es no usar este metodo ya que lo haremos desde el componente PADRE
+    //Vamos a utilizar un metodo de ciclo de vida de un componente , ESTE 
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    //await Task.Delay(30000);
+    //    CargoLaborales = ObtenerCargosLaborales();//recipen le estamos dando valores a la variable CargoLaborales
+    //}    
+}

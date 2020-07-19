@@ -1,0 +1,24 @@
+﻿@inject IJSRuntime js
+
+<div style="display: flex; flex-wrap: wrap; align-content: center;">
+    <ListadoGenerico Listado="Visitas">
+        <HayRegistros Context="visita">
+            <VisitaIndividual Visita="visita"
+                              EliminarVisitaHIJO="EliminarVisitaPADRE" />
+        </HayRegistros>
+    </ListadoGenerico>
+</div>
+
+@code {
+    [Parameter] public List<Visita> Visitas { get; set; }
+
+    async Task EliminarVisitaPADRE(Visita visita)
+    {
+        var confirmar = await js.Confirm($"Desea eliminar el instituto {visita.Id}?");
+        if (confirmar)
+        { /*Remove es un metodo */
+            Visitas.Remove(visita);
+            Console.WriteLine($"Se ha eliminado la visita {visita.Id}");
+        }
+    }
+}

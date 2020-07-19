@@ -1,0 +1,38 @@
+﻿@*<div>
+    <p>Nombre: @CargoLaboral.No_Cargo_Laboral</p>
+    <p>Codigo: @CargoLaboral.Co_Cargo_Laboral</p>
+    <p>Descripción: @CargoLaboral.De_Cargo_Laboral</p>
+    @if (MostrarBotones)
+    {
+        <div>
+            <button @onclick="@(() => EliminarCargoLaboralHIJO.InvokeAsync(CargoLaboral))">Borrar</button>
+        </div>
+    }
+</div>*@
+
+    <div style="margin-right: 2%; margin-bottom: 10px; text-align: center;">
+        <a href="@urlCargoLaboral">
+            <img src="@CargoLaboral.Imagen" alt="Poster" style="width:225px; height: 300px;" />
+        </a>
+        <p style="max-width: 225px; height:44px; font-size: 15px; font-weight: bold;">
+            <a href="@urlCargoLaboral">@CargoLaboral.TituloCortado</a>
+        </p>
+        <div>
+            <a class="btn btn-info">Editar</a>
+            <button type="button" class="btn btn-danger" @onclick="@(()=>EliminarCargoLaboralHIJO.InvokeAsync(CargoLaboral))">
+                Borrar
+            </button>
+        </div>
+    </div>
+
+@code {
+    [Parameter] public CargoLaboral CargoLaboral { get; set; }
+    [Parameter] public bool MostrarBotones { get; set; } = false;
+    [Parameter] public EventCallback<CargoLaboral> EliminarCargoLaboralHIJO { get; set; }
+    //para construir la URL vamos a usar el protected
+    private string urlCargoLaboral = string.Empty;
+    protected override void OnInitialized()
+    {
+        urlCargoLaboral = $"cargolaboral/";
+    }
+}

@@ -1,0 +1,13 @@
+﻿@page "/trabajador/{TrabajadorId:int}"
+@page "/trabajador/{TrabajadorId:int}/{NombreTrabajador}"
+
+<h3>Trabajador</h3>
+
+@code {
+    [Parameter] public int TrabajadorId { get; set; }
+    [Parameter] public string NombreTrabajador { get; set; }
+    protected override void OnInitialized()
+    {
+        Console.WriteLine($"el id del trabajador es: {TrabajadorId} y su nombre es : {NombreTrabajador}");
+    }
+}

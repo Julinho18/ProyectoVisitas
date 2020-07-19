@@ -1,0 +1,24 @@
+﻿@inject IJSRuntime js
+
+<div style="display: flex; flex-wrap: wrap; align-content: center;">
+    <ListadoGenerico Listado="Trabajadores">
+        <HayRegistros Context="trabajador">
+            <TrabajadorIndividual Trabajador="trabajador"
+                                 EliminarTrabajadorHIJO="EliminarTrabajadorPADRE" />
+        </HayRegistros>
+    </ListadoGenerico>
+</div>
+
+@code {
+    [Parameter] public List<Trabajador> Trabajadores { get; set; }
+
+    async Task EliminarTrabajadorPADRE(Trabajador trabajador)
+    {
+        var confirmar = await js.Confirm($"Desea eliminar el trabajador {trabajador.No_Trabajador}?");
+        if (confirmar)
+        { /*Remove es un metodo */
+            Trabajadores.Remove(trabajador);
+            Console.WriteLine($"Se ha eliminado el trabajador,  {trabajador.No_Trabajador}");
+        }
+    }
+}

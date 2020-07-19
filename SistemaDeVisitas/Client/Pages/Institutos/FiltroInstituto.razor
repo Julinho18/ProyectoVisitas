@@ -1,0 +1,76 @@
+﻿@page "/institutos/buscar"
+@inject IRepositorio repositorio
+
+<h3>Filtro Instituto</h3>
+
+<div class="form-inline">
+
+    <div class="form-group mb-2">
+        <label for="nombre" class="sr-only">Nombre del Instituto</label>
+        <input @bind-value="nombre"
+               @bind-value:event="oninput"
+               @onkeypress="@((KeyboardEventArgs e)=> NombreKeyPress(e))"
+               type="text" class="form-control" id="nombre" placeholder="Nombre del instituto" />
+    </div>
+
+    <div class="form-group mx-sm-3 mb-2">
+        <select class="form-control" @bind="institutoSeleccionado">
+            <option value="0">--Seleccionar Instituto--</option>
+            @foreach (var item in instituto)
+            {
+                <option value="@item.Id">@item.No_Instituto</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group mx-sm-3 mb-2">
+        <input type="checkbox" class="form-check-input" id="instituto" @bind="futurosinstitutos" />
+        <label class="form-check-label" for="institutos">
+            Futuros Institutos
+        </label>
+    </div>
+
+    <button type="button" class="btn btn-primary mb-2 mx-sm-3" @onclick="CargarNuevosInstitutos">Filtrar</button>
+    <button type="button" class="btn btn-danger mb-2" @onclick="LimpiarOnClick">Limpiar</button>
+</div>
+
+<ListadoInstitutos Institutos="Institutos" />
+
+@code {
+    private List<Instituto> Institutos;
+    string nombre = "";
+    string institutoSeleccionado = "0";
+    private bool futurosinstitutos = false; /*Se crearian más de estas propiedades si colcamos más condiciones*/
+    private List<Instituto> instituto = new List<Instituto>();
+
+    protected override void OnInitialized()
+    {
+        Institutos = repositorio.ObtenerInstitutos();
+    }
+
+    //La idea de esto es que cuando el cuando el usuario le de clip al NOMBRE se carge los nuevos cargos laborales
+    private void NombreKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")//Si se presiona ENTER ejecutar el metodo
+        {
+            CargarNuevosInstitutos();
+        }
+    }
+
+    private void CargarNuevosInstitutos()
+    {
+        //Lo de abajo es el que hace el FILTRO
+        Institutos = Institutos.Where(x => x.No_Instituto.ToLower().Contains(nombre.ToLower())).ToList();
+        Console.WriteLine($"Nombre del instituto: {nombre}");
+        Console.WriteLine($"Instituto seleccionado: {institutoSeleccionado}");
+        Console.WriteLine($"Futuros institutos: {futurosinstitutos}");
+    }
+
+    private void LimpiarOnClick()
+    {
+        Institutos = repositorio.ObtenerInstitutos();
+        nombre = "";
+        institutoSeleccionado = "0";
+        futurosinstitutos = false;
+    }
+}

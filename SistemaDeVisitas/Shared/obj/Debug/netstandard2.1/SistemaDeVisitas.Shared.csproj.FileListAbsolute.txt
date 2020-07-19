@@ -1,0 +1,9 @@
+C:\Users\Julinho\source\repos\SistemaDeVisitas\SistemaDeVisitas\Shared\bin\Debug\netstandard2.1\SistemaDeVisitas.Shared.deps.json
+C:\Users\Julinho\source\repos\SistemaDeVisitas\SistemaDeVisitas\Shared\bin\Debug\netstandard2.1\SistemaDeVisitas.Shared.dll
+C:\Users\Julinho\source\repos\SistemaDeVisitas\SistemaDeVisitas\Shared\bin\Debug\netstandard2.1\SistemaDeVisitas.Shared.pdb
+C:\Users\Julinho\source\repos\SistemaDeVisitas\SistemaDeVisitas\Shared\obj\Debug\netstandard2.1\SistemaDeVisitas.Shared.csprojAssemblyReference.cache
+C:\Users\Julinho\source\repos\SistemaDeVisitas\SistemaDeVisitas\Shared\obj\Debug\netstandard2.1\SistemaDeVisitas.Shared.AssemblyInfoInputs.cache
+C:\Users\Julinho\source\repos\SistemaDeVisitas\SistemaDeVisitas\Shared\obj\Debug\netstandard2.1\SistemaDeVisitas.Shared.AssemblyInfo.cs
+C:\Users\Julinho\source\repos\SistemaDeVisitas\SistemaDeVisitas\Shared\obj\Debug\netstandard2.1\SistemaDeVisitas.Shared.dll
+C:\Users\Julinho\source\repos\SistemaDeVisitas\SistemaDeVisitas\Shared\obj\Debug\netstandard2.1\SistemaDeVisitas.Shared.pdb
+C:\Users\Julinho\source\repos\SistemaDeVisitas\SistemaDeVisitas\Shared\obj\Debug\netstandard2.1\SistemaDeVisitas.Shared.csproj.CoreCompileInputs.cache

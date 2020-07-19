@@ -1,0 +1,74 @@
+﻿
+    <EditForm Model="Visitante" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <div class="form-group">
+            <label>Nombre del Visitante:</label>
+            <div>
+                <InputText class="form-control" @bind-Value="Visitante.No_Visitante" />
+                <ValidationMessage For="@(()=>Visitante.No_Visitante)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Apellido Paterno del Visitante:</label>
+            <div>
+                <InputText class="form-control" @bind-Value="Visitante.Ap_Paterno_Visitante" />
+                <ValidationMessage For="@(()=>Visitante.Ap_Paterno_Visitante)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Apellido Materno del Visitante:</label>
+            <div>
+                <InputText class="form-control" @bind-Value="Visitante.Ap_Materno_Visitante" />
+                <ValidationMessage For="@(()=>Visitante.Ap_Materno_Visitante)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Tipo del documento del Visitante:</label>
+            <div>
+                <InputText class="form-control" @bind-Value="Visitante.Tipo_Documento" />
+                <ValidationMessage For="@(()=>Visitante.Tipo_Documento)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Número del documento del Visitante:</label>
+            <div>
+                <InputText class="form-control" @bind-Value="Visitante.Nu_Documento" />
+                <ValidationMessage For="@(()=>Visitante.Nu_Documento)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <InputImg Label="Imagen" ImagenSeleccionada="ImagenSeleccionada" ImagenTemporal="" />
+        </div>
+
+        <button class="btn btn-success" type="submit">Guardar Cambios</button>
+    </EditForm>
+
+@code {
+    [Parameter] public Visitante Visitante { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private string imagenTemporal;
+
+    protected override void OnInitialized()
+    {
+        if (!string.IsNullOrWhiteSpace(Visitante.Imagen))
+        {
+            //Si hay contenido en el campo Imagen de la clase Trabajador, lo que haremos será asignar a la variable imagentemporal
+            //esa foto que contiene ese campo
+            imagenTemporal = Visitante.Imagen;
+            //Al colocar esto. Solo  enviar al servidor la foto de la persona, SI la foto a sido actualizada
+            Visitante.Imagen = null;
+        }
+    }
+
+    private void ImagenSeleccionada(string imagenBase64)
+    {
+        Visitante.Imagen = imagenBase64;
+    }
+}
+

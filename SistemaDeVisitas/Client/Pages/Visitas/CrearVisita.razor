@@ -1,0 +1,19 @@
+﻿@page "/visita/crear"
+@inject NavigationManager navigationManager 
+@*Lo de arriba es necesario para poder utilizar el NavigateTO*@
+
+<h3>Crear Visita</h3>
+
+<FormularioVisita OnValidSubmit="Crear" Visita="Visita"/>
+
+@code {
+    private Visita Visita = new Visita();
+    void Crear()
+    {
+        //Console.WriteLine(navigationManager.Uri);
+        //El navigaTo nos redirige a otra parte de nuestra aplicacion
+        //navigationManager.NavigateTo("visita");
+        Console.WriteLine("Ejecutando metodo crear Visita");
+        Console.WriteLine($"El nombre del lugar de reunion de la visita es: {Visita.No_Lugar_Reunion}");
+    }
+}
